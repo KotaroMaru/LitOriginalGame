@@ -7,7 +7,8 @@ public class CameraController : MonoBehaviour
 {
     public Vector3 cameraTransPos;
     public GameObject player;
-    private float cameraSpeed = 3.0f;
+    //private float cameraSpeed = 3.0f;
+
     // Start is called before the first frame update
     void Start()
     {

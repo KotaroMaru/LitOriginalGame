@@ -22,21 +22,24 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
         Vector3 moveDir = new Vector3(x, 0, z);
         moveDir.Normalize();
         //回転
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-        //移動
-        if (myRigid.velocity.magnitude < maxSpeed)
-        {
-            myRigid.AddForce(moveDir * moveSpeed);
-        }
+
         //アニメーション
         if (moveDir != Vector3.zero)
         {
             myAnimator.SetBool("isMove", true);
+            //移動
+            if (myRigid.velocity.magnitude < maxSpeed)
+            {
+
+                myRigid.AddForce(transform.forward * moveSpeed);
+            }
         }
         else
         {

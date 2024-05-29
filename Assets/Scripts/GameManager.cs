@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     public Text timerText;
     private float timeCount = 0;
     private float timeLimit = 0;
-
     void Start()
     {
         //General
@@ -38,7 +37,7 @@ public class GameManager : MonoBehaviour
     public void RetryButton()
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void GameOver()
     {
