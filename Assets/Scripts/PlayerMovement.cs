@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator myAnimator;
     private Vector3 movingDirection;
     private float rotateSpeed = 9.0f;
-    private float moveSpeed = 200.0f;
-    private float maxSpeed = 20.0f;
+    public float moveSpeed = 250.0f;
+    public float maxSpeed = 30.0f;
 
     void Start()
     {
