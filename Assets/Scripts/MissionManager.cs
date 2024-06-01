@@ -10,6 +10,7 @@ public class MissionManager : MonoBehaviour
     public Text missionText;
     public Slider missionSlider;
     public float missionMaxTime;
+    private GameObject targetVilleger;
     //ミッションの残り時間
     private float missionTimeCount;
     private bool isMission = false;
@@ -25,6 +26,7 @@ public class MissionManager : MonoBehaviour
         missionText.text = "";
         missionTimeCount = 0;
         isMission = false;
+        targetVilleger = null;
         //お届けミッション
         missionGoal.SetActive(false);
     }
@@ -45,13 +47,14 @@ public class MissionManager : MonoBehaviour
     }
 
     //お届けミッション//
-    public void OtodokeStart()
+    public void OtodokeStart(GameObject villeger)
     {
         if (isMission) return;
+        targetVilleger = villeger;
         isMission = true;
         Debug.Log("OtodokeMissionStart");
         missionCanvas.gameObject.SetActive(true);
-        missionText.text = "交番へ向かえ";
+        missionText.text = "レストランへ向かえ";
         missionGoal.SetActive(true);
         missionTimeCount = missionMaxTime;
         missionSlider.value = missionTimeCount / missionMaxTime;
@@ -60,6 +63,7 @@ public class MissionManager : MonoBehaviour
     public void MissionClear()
     {
         MissionEnd();
+        targetVilleger.GetComponent<VillagerController>().MissionEnd();
         Debug.Log("MISSIONCLEAR");
     }
     public void MissionEnd()

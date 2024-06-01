@@ -5,9 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-    //Canvas
+    //結果UI
     public Canvas gameOverCanvas;
     public Canvas gameClearCanvas;
+    public Text resultText;
+
     //タイマー
     public Text timerText;
     private float timeCount = 0;
@@ -50,5 +52,6 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         gameClearCanvas.gameObject.SetActive(true);
+        resultText.text = "残り時間：" + timeCount.ToString("f0") + "秒";
     }
 }
