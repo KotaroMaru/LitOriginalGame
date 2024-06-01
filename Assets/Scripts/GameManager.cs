@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     public Text timerText;
     private float timeCount = 0;
     private float timeLimit = 0;
+
+    //徳テキスト
+    public Text tokuText;
+    private int tokuCount;
     void Start()
     {
         //General
@@ -22,8 +26,11 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.gameObject.SetActive(false);
         gameClearCanvas.gameObject.SetActive(false);
         //タイマー
-        timeLimit = 1000f;
+        timeLimit = 30f;
         timeCount = timeLimit;
+        //徳
+        tokuText.text = "0";
+        tokuCount = 0;
     }
     void Update()
     {
@@ -53,5 +60,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         gameClearCanvas.gameObject.SetActive(true);
         resultText.text = "残り時間：" + timeCount.ToString("f0") + "秒";
+        tokuCount += (int)timeCount;
+        tokuText.text = tokuCount.ToString();
     }
 }

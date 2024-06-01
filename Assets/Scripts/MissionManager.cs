@@ -39,7 +39,7 @@ public class MissionManager : MonoBehaviour
             if (missionTimeCount <= 0)
             {
                 Debug.Log("MissionFailed");
-                MissionEnd();
+                MissionEnd(false);
             }
         }
 
@@ -62,16 +62,32 @@ public class MissionManager : MonoBehaviour
 
     public void MissionClear()
     {
-        MissionEnd();
+        MissionEnd(true);
         targetVilleger.GetComponent<VillagerController>().MissionEnd();
         Debug.Log("MISSIONCLEAR");
     }
-    public void MissionEnd()
+    public void MissionEnd(bool isSuccess)
     {
+        if (isSuccess == true)
+        {
+            missionText.text = "人助け成功！";
+        }
+        else
+        {
+            missionText.text = "失敗";
+        }
+        missionSlider.gameObject.SetActive(false);
+        StartCoroutine("destroyUI");
+
+
+    }
+
+    IEnumerator destroyUI()
+    {
+        yield return new WaitForSeconds(2.5f);
         isMission = false;
         missionCanvas.gameObject.SetActive(false);
         missionTimeCount = 0;
         missionGoal.SetActive(false);
-
     }
 }
