@@ -11,6 +11,7 @@ public class MissionManager : MonoBehaviour
     public Slider missionSlider;
     public float missionMaxTime;
     private GameObject targetVilleger;
+    public GameManager GameManager;
     //ミッションの残り時間
     private float missionTimeCount;
     private bool isMission = false;
@@ -65,6 +66,7 @@ public class MissionManager : MonoBehaviour
         MissionEnd(true);
         targetVilleger.GetComponent<VillagerController>().MissionEnd();
         Debug.Log("MISSIONCLEAR");
+        GameManager.MissionClear();
     }
     public void MissionEnd(bool isSuccess)
     {

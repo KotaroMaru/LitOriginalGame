@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody myRigid;
     private Animator myAnimator;
     private Vector3 movingDirection;
-    private float rotateSpeed = 9.0f;
+    private float rotateSpeed = 1.0f;
     public float moveSpeed = 250.0f;
     public float maxSpeed = 30.0f;
 
@@ -17,33 +17,49 @@ public class PlayerMovement : MonoBehaviour
     {
         myAnimator = this.gameObject.GetComponent<Animator>();
         myRigid = this.gameObject.GetComponent<Rigidbody>();
+        myAnimator.SetBool("Move", false);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
-        Vector3 moveDir = new Vector3(x, 0, z);
-        moveDir.Normalize();
-        //回転
-        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-
-        //アニメーション
-        if (moveDir != Vector3.zero)
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            myAnimator.SetBool("isMove", true);
-            //移動
+            transform.Rotate(0, rotateSpeed, 0);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Rotate(0, -1 * rotateSpeed, 0);
+
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
             if (myRigid.velocity.magnitude < maxSpeed)
             {
-
                 myRigid.AddForce(transform.forward * moveSpeed);
             }
+            myAnimator.SetBool("Move", true);
+
+
         }
-        else
+        if (Input.GetKey(KeyCode.DownArrow))
         {
-            myAnimator.SetBool("isMove", false);
+            if (myRigid.velocity.magnitude < maxSpeed)
+            {
+                myRigid.AddForce(-1 * transform.forward * moveSpeed);
+            }
+            myAnimator.SetBool("Move", true);
+        }
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            myAnimator.SetBool("Move", false);
+
+        }
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            myAnimator.SetBool("Move", false);
+
         }
     }
 }

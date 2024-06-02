@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     //タイマー
     public Text timerText;
     private float timeCount = 0;
-    private float timeLimit = 0;
+    public float timeLimit = 0;
 
     //徳テキスト
     public Text tokuText;
@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.gameObject.SetActive(false);
         gameClearCanvas.gameObject.SetActive(false);
         //タイマー
-        timeLimit = 30f;
         timeCount = timeLimit;
         //徳
         tokuText.text = "0";
@@ -62,5 +61,14 @@ public class GameManager : MonoBehaviour
         resultText.text = "残り時間：" + timeCount.ToString("f0") + "秒";
         tokuCount += (int)timeCount;
         tokuText.text = tokuCount.ToString();
+    }
+    public void MissionClear()
+    {
+        TokuGain(100);
+    }
+    private void TokuGain(int count)
+    {
+        tokuCount += count;
+        tokuText.text = tokuCount.ToString("F0");
     }
 }
