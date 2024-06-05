@@ -1,28 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class VillagerController : MonoBehaviour
 {
-    public MissionManager missionManager;
+    private MissionManager missionManager;
     private Animator myAnimator;
     private bool isMissioned = false;
-    public GameObject targetObject;
+    [SerializeField] private GameObject targetObject;
     public bool isChase;
-    public Text myText;
-    private Vector3 targetHaikaiPos;
-    public GameObject[] HaikaiPosObj;
+    [SerializeField] private Text myText;
+    [SerializeField] private Vector3 targetHaikaiPos;
+    [SerializeField] private GameObject[] HaikaiPosObj;
     NavMeshAgent myNavMeshAgent;
+    [SerializeField] private MissionItem myMission;
+    [SerializeField] private GameObject goalObj;
 
     void Start()
     {
+        missionManager = GameObject.FindWithTag("GameController").GetComponent<MissionManager>();
         isMissioned = false;
         myAnimator = this.gameObject.GetComponent<Animator>();
         myNavMeshAgent = GetComponent<NavMeshAgent>();
         isChase = false;
-
+        myMission.goalObject = goalObj;
+        myText.text = myMission.villegerComent;
     }
 
 
@@ -56,7 +61,7 @@ public class VillagerController : MonoBehaviour
         if (isMissioned == true) return;
         if (other.gameObject.tag == "Player")
         {
-            missionManager.OtodokeStart(this.gameObject);
+            missionManager.MissionStart(this.gameObject, myMission);
         }
     }
     public void MissionEnd()

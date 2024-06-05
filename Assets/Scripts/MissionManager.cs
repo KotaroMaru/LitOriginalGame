@@ -1,27 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MissionManager : MonoBehaviour
 {
     //General
-    public Canvas missionCanvas;
-    public Text missionText;
-    public Slider missionSlider;
-    public float missionMaxTime;
+    [SerializeField] private Canvas missionCanvas;
+    [SerializeField] private Text missionText;
+    [SerializeField] private Slider missionSlider;
+    [SerializeField] private float missionMaxTime;
     private GameObject targetVilleger;
-    public GameManager GameManager;
+    [SerializeField] private GameManager GameManager;
+
     //ミッションの残り時間
     private float missionTimeCount;
     private bool isMission = false;
     //お届けミッション
-    public GameObject missionGoal;
-
-
+    [SerializeField] private GameObject missionGoal;
+    //拾いミッション
+    [SerializeField] private GameObject tomatoObject;
+    [SerializeField] private GameObject[] positionMarkers;
+    private GameObject missionObj;
+    private int missionNum;
     void Start()
     {
         //初期設定
+        InitializeMission();
+    }
+    void Update()
+    {
+        if (isMission == true)
+        {
+            UpdateMissionTime();
+        }
+    }
+    private void UpdateMissionTime()
+    {
+        missionTimeCount -= Time.deltaTime;
+        missionSlider.value = missionTimeCount / missionMaxTime;
+        if (missionTimeCount <= 0)
+        {
+            Debug.Log("MissionFailed");
+            MissionEnd(false);
+        }
+    }
+    private void InitializeMission()
+    {
         //general
         missionCanvas.gameObject.SetActive(false);
         missionText.text = "";
@@ -31,34 +57,37 @@ public class MissionManager : MonoBehaviour
         //お届けミッション
         missionGoal.SetActive(false);
     }
-    void Update()
-    {
-        if (isMission == true)
-        {
-            missionTimeCount -= Time.deltaTime;
-            missionSlider.value = missionTimeCount / missionMaxTime;
-            if (missionTimeCount <= 0)
-            {
-                Debug.Log("MissionFailed");
-                MissionEnd(false);
-            }
-        }
-
-
-    }
 
     //お届けミッション//
-    public void OtodokeStart(GameObject villeger)
+    public void MissionStart(GameObject villeger, MissionItem mission)
     {
         if (isMission) return;
+        missionCanvas.gameObject.SetActive(true);
         targetVilleger = villeger;
         isMission = true;
-        Debug.Log("OtodokeMissionStart");
-        missionCanvas.gameObject.SetActive(true);
-        missionText.text = "レストランへ向かえ";
-        missionGoal.SetActive(true);
+        this.missionNum = mission.missionNum;
+        missionText.text = mission.missionDescription;
         missionTimeCount = missionMaxTime;
         missionSlider.value = missionTimeCount / missionMaxTime;
+        switch (missionNum)
+        {
+            //お届け
+            case 0:
+                OtokdokeMissionStart();
+                break;
+            case 1:
+                HiroiMissionStart(mission.goalObject.transform);
+                break;
+        }
+    }
+    private void OtokdokeMissionStart()
+    {
+        missionGoal.SetActive(true);
+
+    }
+    private void HiroiMissionStart(Transform goalPos)
+    {
+        GameObject dropItem = Instantiate(tomatoObject, goalPos);
     }
 
     public void MissionClear()
@@ -70,21 +99,18 @@ public class MissionManager : MonoBehaviour
     }
     public void MissionEnd(bool isSuccess)
     {
-        if (isSuccess == true)
-        {
-            missionText.text = "人助け成功！";
-        }
-        else
-        {
-            missionText.text = "失敗";
-        }
-        missionSlider.gameObject.SetActive(false);
-        StartCoroutine("destroyUI");
+        missionText.text = isSuccess ? "人助け成功！" : "失敗";
 
+        missionSlider.gameObject.SetActive(false);
+        StartCoroutine(DeactivateMissionUI());
+        if ((missionNum == 1) && (isSuccess == false))
+        {
+            Destroy(missionObj);
+        }
 
     }
 
-    IEnumerator destroyUI()
+    IEnumerator DeactivateMissionUI()
     {
         yield return new WaitForSeconds(2.5f);
         isMission = false;

@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //結果UI
-    public Canvas gameOverCanvas;
-    public Canvas gameClearCanvas;
-    public Text resultText;
+    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private Canvas gameClearCanvas;
+    [SerializeField] private Text resultText;
 
     //タイマー
-    public Text timerText;
+    [SerializeField] private Text timerText;
     private float timeCount = 0;
-    public float timeLimit = 0;
+    [SerializeField] private float timeLimit = 0;
 
     //徳テキスト
-    public Text tokuText;
+    [SerializeField] private Text tokuText;
     private int tokuCount;
     void Start()
     {
@@ -33,9 +33,14 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        UpdateTimer();
+
+    }
+    private void UpdateTimer()
+    {
         //タイマー
         timeCount -= Time.deltaTime;
-        timerText.text = timeCount.ToString("f0") + "秒";
+        timerText.text = $"{timeCount:f0}秒";
         //時間切れ
         if (timeCount < 0)
         {
@@ -59,14 +64,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         gameClearCanvas.gameObject.SetActive(true);
         resultText.text = "残り時間：" + timeCount.ToString("f0") + "秒";
-        tokuCount += (int)timeCount;
-        tokuText.text = tokuCount.ToString();
+        AddTokuCount((int)timeCount);
     }
     public void MissionClear()
     {
-        TokuGain(100);
+        AddTokuCount(100);
     }
-    private void TokuGain(int count)
+    private void AddTokuCount(int count)
     {
         tokuCount += count;
         tokuText.text = tokuCount.ToString("F0");
