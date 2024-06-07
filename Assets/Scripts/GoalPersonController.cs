@@ -6,6 +6,7 @@ public class GoalPersonController : MonoBehaviour
 {
     private MissionManager missionManager;
     [SerializeField] private VillagerController villagerController;
+    private bool isMissioned = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +20,11 @@ public class GoalPersonController : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (isMissioned == false && other.gameObject.tag == "Player")
         {
             missionManager.MissionClear();
             villagerController.MissionEnd();
+            isMissioned = true;
         }
     }
 }

@@ -21,9 +21,9 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject missionGoal;
     //拾いミッション
     [SerializeField] private GameObject tomatoObject;
-    [SerializeField] private GameObject[] positionMarkers;
     //人探しミッション
     [SerializeField] private GameObject goalPersonPrefab;
+
     private GameObject goalPerson;
 
     private GameObject missionObj;
@@ -98,7 +98,7 @@ public class MissionManager : MonoBehaviour
     }
     private void HitosagashiMissionStart(Transform genePos)
     {
-        goalPerson = Instantiate(goalPerson, genePos);
+        goalPerson = Instantiate(goalPersonPrefab, genePos);
     }
 
     public void MissionClear()

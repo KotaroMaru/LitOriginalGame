@@ -13,7 +13,7 @@ public class VillagerController : MonoBehaviour
     [SerializeField] private GameObject targetObject;
     public bool isChase;
     [SerializeField] private Text myText;
-    [SerializeField] private Vector3 targetHaikaiPos;
+    [SerializeField] public Vector3 targetHaikaiPos;
     [SerializeField] private GameObject[] HaikaiPosObj;
     NavMeshAgent myNavMeshAgent;
     [SerializeField] private MissionItem myMission;
@@ -25,6 +25,7 @@ public class VillagerController : MonoBehaviour
         isMissioned = false;
         myAnimator = this.gameObject.GetComponent<Animator>();
         myNavMeshAgent = GetComponent<NavMeshAgent>();
+        targetHaikaiPos = HaikaiPosObj[Random.Range(0, HaikaiPosObj.Length)].transform.position;
         isChase = false;
         if (missionObject != null)
         {
