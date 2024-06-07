@@ -22,6 +22,10 @@ public class MissionManager : MonoBehaviour
     //拾いミッション
     [SerializeField] private GameObject tomatoObject;
     [SerializeField] private GameObject[] positionMarkers;
+    //人探しミッション
+    [SerializeField] private GameObject goalPersonPrefab;
+    private GameObject goalPerson;
+
     private GameObject missionObj;
     private int missionNum;
     void Start()
@@ -76,7 +80,10 @@ public class MissionManager : MonoBehaviour
                 OtokdokeMissionStart();
                 break;
             case 1:
-                HiroiMissionStart(mission.goalObject.transform);
+                HiroiMissionStart(mission.targetObj.transform);
+                break;
+            case 2:
+                HitosagashiMissionStart(mission.targetObj.transform);
                 break;
         }
     }
@@ -88,6 +95,10 @@ public class MissionManager : MonoBehaviour
     private void HiroiMissionStart(Transform goalPos)
     {
         GameObject dropItem = Instantiate(tomatoObject, goalPos);
+    }
+    private void HitosagashiMissionStart(Transform genePos)
+    {
+        goalPerson = Instantiate(goalPerson, genePos);
     }
 
     public void MissionClear()
@@ -103,11 +114,16 @@ public class MissionManager : MonoBehaviour
 
         missionSlider.gameObject.SetActive(false);
         StartCoroutine(DeactivateMissionUI());
+
+        //終了処理(失敗時)
         if ((missionNum == 1) && (isSuccess == false))
         {
             Destroy(missionObj);
         }
-
+        if ((missionNum == 2) && (isSuccess == false))
+        {
+            Destroy(goalPerson);
+        }
     }
 
     IEnumerator DeactivateMissionUI()
@@ -118,4 +134,5 @@ public class MissionManager : MonoBehaviour
         missionTimeCount = 0;
         missionGoal.SetActive(false);
     }
+
 }

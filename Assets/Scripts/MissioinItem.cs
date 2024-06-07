@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 [Serializable]
-[CreateAssetMenu(fileName = "Mission", menuName = "CreateMissionDB")]
+[CreateAssetMenu(fileName = "Mission", menuName = "CreateMission")]
 
 public class MissionItem : ScriptableObject
 {
     public int missionNum;
     public string missionDescription;
     public string villegerComent;
-    public GameObject goalObject;
+    public GameObject targetObj;
 
     public MissionItem(MissionItem missionItem)
     {
         this.missionNum = missionItem.missionNum;
         this.missionDescription = missionItem.missionDescription;
-        this.goalObject = missionItem.goalObject;
+        this.targetObj = missionItem.targetObj;
         this.villegerComent = missionItem.villegerComent;
     }
 }

@@ -17,7 +17,7 @@ public class VillagerController : MonoBehaviour
     [SerializeField] private GameObject[] HaikaiPosObj;
     NavMeshAgent myNavMeshAgent;
     [SerializeField] private MissionItem myMission;
-    [SerializeField] private GameObject goalObj;
+    [SerializeField] private GameObject missionObject;
 
     void Start()
     {
@@ -26,7 +26,10 @@ public class VillagerController : MonoBehaviour
         myAnimator = this.gameObject.GetComponent<Animator>();
         myNavMeshAgent = GetComponent<NavMeshAgent>();
         isChase = false;
-        myMission.goalObject = goalObj;
+        if (missionObject != null)
+        {
+            myMission.targetObj = missionObject;
+        }
         myText.text = myMission.villegerComent;
     }
 
@@ -37,6 +40,7 @@ public class VillagerController : MonoBehaviour
         if (myNavMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid && isChase == true)
         {
             // NavMeshAgentに目的地をセット
+            if (targetObject == null) return;
             myNavMeshAgent.SetDestination(targetObject.transform.position);
         }
         else
