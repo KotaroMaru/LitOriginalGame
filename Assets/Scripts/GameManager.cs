@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         gameClearCanvas.gameObject.SetActive(true);
         clearResultText.text = "残り時間：" + timeCount.ToString("f0") + "秒";
         AddTokuCount((int)timeCount);
-        clearTokuText.text = "徳ポイント:" + tokuCount.ToString("F0") + "(" + todayTokuCount.ToString("F0") + ")";
+        clearTokuText.text = "徳ポイント:" + tokuCount.ToString("F0") + "(+" + todayTokuCount.ToString("F0") + ")";
     }
     public void MissionClear()
     {
