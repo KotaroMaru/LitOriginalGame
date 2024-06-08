@@ -18766,7 +18766,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 154}
+  m_AnchoredPosition: {x: 0, y: 160}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &423960235
@@ -29797,7 +29797,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 188}
+  m_AnchoredPosition: {x: 0, y: 194}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &623032348
@@ -29822,10 +29822,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 61c12e8d7614e408aa5587d463590f1f, type: 3}
-    m_FontSize: 43
+    m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
+    m_MinSize: 3
     m_MaxSize: 65
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -43453,7 +43453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 97889380835501095, guid: 2ef21d87f807746d683d462afbe5bfdf, type: 3}
       propertyPath: moveForce
-      value: 250
+      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 97889380835501095, guid: 2ef21d87f807746d683d462afbe5bfdf, type: 3}
       propertyPath: moveSpeed
@@ -52227,8 +52227,8 @@ MonoBehaviour:
   - {fileID: 62951921}
   - {fileID: 256753360}
   - {fileID: 129311927}
-  myMission: {fileID: 11400000, guid: 59e17bf7dd9084944b731a5ca432cc44, type: 2}
-  missionObject: {fileID: 2051517819}
+  myMission: {fileID: 11400000, guid: dd32d70b357a64564a5937e30632d31a, type: 2}
+  missionObject: {fileID: 1702359592}
 --- !u!136 &1066050941
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -52717,7 +52717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1073985329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79547,7 +79547,7 @@ MonoBehaviour:
   - {fileID: 62951921}
   - {fileID: 256753360}
   - {fileID: 129311927}
-  myMission: {fileID: 11400000, guid: 59e17bf7dd9084944b731a5ca432cc44, type: 2}
+  myMission: {fileID: 11400000, guid: dd32d70b357a64564a5937e30632d31a, type: 2}
   missionObject: {fileID: 1702359592}
 --- !u!136 &1510855212
 CapsuleCollider:
@@ -80113,7 +80113,7 @@ RectTransform:
   m_Father: {fileID: 1307938217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -108166,7 +108166,7 @@ PrefabInstance:
       objectReference: {fileID: 1897280767}
     - target: {fileID: 9148845730769626225, guid: 9acd472b77d214863a6e8a0f376c8196, type: 3}
       propertyPath: timeLimit
-      value: 60
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 9148845730769626225, guid: 9acd472b77d214863a6e8a0f376c8196, type: 3}
       propertyPath: timerText

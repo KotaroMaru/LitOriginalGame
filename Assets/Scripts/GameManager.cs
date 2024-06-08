@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 public class GameManager : MonoBehaviour
 {
+    private bool isGameStop = false;
     //結果UI
     [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private Canvas gameClearCanvas;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        if (isGameStop) return;
         UpdateTimer();
 
     }
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
         if (timeCount < 0)
         {
             GameOver();
+            isGameStop = true;
         }
     }
     public void RetryButton()
@@ -71,7 +74,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         gameClearCanvas.gameObject.SetActive(true);
         clearResultText.text = "残り時間：" + timeCount.ToString("f0") + "秒";
-        AddTokuCount((int)timeCount);
+        AddTokuCount((int)timeCount / 2);
         clearTokuText.text = "徳ポイント:" + tokuCount.ToString("F0") + "(+" + todayTokuCount.ToString("F0") + ")";
     }
     public void MissionClear()

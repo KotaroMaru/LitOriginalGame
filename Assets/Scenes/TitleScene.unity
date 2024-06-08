@@ -22050,6 +22050,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 97889380835501095, guid: 2ef21d87f807746d683d462afbe5bfdf, type: 3}
+      propertyPath: maxSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 97889380835501095, guid: 2ef21d87f807746d683d462afbe5bfdf, type: 3}
+      propertyPath: moveForce
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 97889380835501095, guid: 2ef21d87f807746d683d462afbe5bfdf, type: 3}
+      propertyPath: rotateSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 337744753052781464, guid: 2ef21d87f807746d683d462afbe5bfdf, type: 3}
       propertyPath: m_Constraints
       value: 116

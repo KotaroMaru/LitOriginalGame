@@ -119,25 +119,23 @@ public class MissionManager : MonoBehaviour
         if (isSuccess == false)
         {
             gameManager.MissionFailed();
-            //終了処理
-            if (missionNum == 0)
-            {
-                mygoalObj.SetActive(false);
-            }
-            if ((missionNum == 1) && (isSuccess == false))
-            {
-                Destroy(missionObj);
-            }
-            if ((missionNum == 2) && (isSuccess == false))
-            {
-                Destroy(goalPerson);
-            }
-            //終了処理UI
-            isEndDuration = true;
-            StartCoroutine(DeactivateMissionUI());
-
         }
-
+        //終了処理
+        if (missionNum == 0)
+        {
+            mygoalObj.SetActive(false);
+        }
+        if ((missionNum == 1) && (isSuccess == false))
+        {
+            Destroy(missionObj);
+        }
+        if ((missionNum == 2) && (isSuccess == false))
+        {
+            Destroy(goalPerson);
+        }
+        //終了処理UI
+        isEndDuration = true;
+        StartCoroutine(DeactivateMissionUI());
 
 
     }
