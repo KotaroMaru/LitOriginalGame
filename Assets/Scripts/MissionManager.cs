@@ -66,6 +66,7 @@ public class MissionManager : MonoBehaviour
     public void MissionStart(GameObject villeger, MissionItem mission)
     {
         if (isMission) return;
+        Debug.Log("MISSIONSTART");
         missionCanvas.gameObject.SetActive(true);
         targetVilleger = villeger;
         isMission = true;
