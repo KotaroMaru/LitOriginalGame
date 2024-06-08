@@ -66,7 +66,6 @@ public class MissionManager : MonoBehaviour
     public void MissionStart(GameObject villeger, MissionItem mission)
     {
         if (isMission) return;
-        Debug.Log("MISSIONSTART");
         missionCanvas.gameObject.SetActive(true);
         targetVilleger = villeger;
         isMission = true;
@@ -139,14 +138,15 @@ public class MissionManager : MonoBehaviour
 
         }
 
-        IEnumerator DeactivateMissionUI()
-        {
-            yield return new WaitForSeconds(2.5f);
-            isMission = false;
-            missionCanvas.gameObject.SetActive(false);
-            missionTimeCount = 0;
-            isEndDuration = false;
-        }
 
+
+    }
+    IEnumerator DeactivateMissionUI()
+    {
+        yield return new WaitForSeconds(2.5f);
+        isMission = false;
+        missionCanvas.gameObject.SetActive(false);
+        missionTimeCount = 0;
+        isEndDuration = false;
     }
 }
