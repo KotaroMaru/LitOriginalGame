@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     //徳テキスト
     [SerializeField] private Text tokuText;
-    private int tokuCount;
+    public int tokuCount;
     void Start()
     {
         //General

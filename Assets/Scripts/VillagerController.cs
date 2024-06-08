@@ -14,7 +14,7 @@ public class VillagerController : MonoBehaviour
     public bool isChase;
     [SerializeField] private Text myText;
     [SerializeField] public Vector3 targetHaikaiPos;
-    [SerializeField] private GameObject[] HaikaiPosObj;
+    [SerializeField] public GameObject[] HaikaiPosObj;
     NavMeshAgent myNavMeshAgent;
     [SerializeField] private MissionItem myMission;
     [SerializeField] private GameObject missionObject;
@@ -25,7 +25,7 @@ public class VillagerController : MonoBehaviour
         isMissioned = false;
         myAnimator = this.gameObject.GetComponent<Animator>();
         myNavMeshAgent = GetComponent<NavMeshAgent>();
-        targetHaikaiPos = HaikaiPosObj[Random.Range(0, HaikaiPosObj.Length)].transform.position;
+        SetHaikaiPos(0);
         isChase = false;
         if (missionObject != null)
         {
@@ -87,9 +87,10 @@ public class VillagerController : MonoBehaviour
             numbers.Add(i);
         }
 
-        numbers.RemoveAt(now);
+        numbers.Remove(now);
         int r = Random.Range(0, numbers.Count);
         targetHaikaiPos = HaikaiPosObj[numbers[r]].transform.position;
+
 
     }
 

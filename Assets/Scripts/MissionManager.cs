@@ -17,12 +17,14 @@ public class MissionManager : MonoBehaviour
     //ミッションの残り時間
     private float missionTimeCount;
     private bool isMission = false;
+    private bool isEndDuration = false;
     //お届けミッション
-    [SerializeField] private GameObject missionGoal;
+    private GameObject mygoalObj;
     //拾いミッション
     [SerializeField] private GameObject tomatoObject;
     //人探しミッション
     [SerializeField] private GameObject goalPersonPrefab;
+    [SerializeField] private GameObject[] goalPersonHaikaiObj;
 
     private GameObject goalPerson;
 
@@ -35,7 +37,7 @@ public class MissionManager : MonoBehaviour
     }
     void Update()
     {
-        if (isMission == true)
+        if (isMission == true && isEndDuration == false)
         {
             UpdateMissionTime();
         }
@@ -58,11 +60,10 @@ public class MissionManager : MonoBehaviour
         missionTimeCount = 0;
         isMission = false;
         targetVilleger = null;
-        //お届けミッション
-        missionGoal.SetActive(false);
+
     }
 
-    //お届けミッション//
+    //ミッション//
     public void MissionStart(GameObject villeger, MissionItem mission)
     {
         if (isMission) return;
@@ -72,12 +73,13 @@ public class MissionManager : MonoBehaviour
         this.missionNum = mission.missionNum;
         missionText.text = mission.missionDescription;
         missionTimeCount = missionMaxTime;
+        missionSlider.gameObject.SetActive(true);
         missionSlider.value = missionTimeCount / missionMaxTime;
         switch (missionNum)
         {
             //お届け
             case 0:
-                OtokdokeMissionStart();
+                OtokdokeMissionStart(mission.targetObj);
                 break;
             case 1:
                 HiroiMissionStart(mission.targetObj.transform);
@@ -87,18 +89,20 @@ public class MissionManager : MonoBehaviour
                 break;
         }
     }
-    private void OtokdokeMissionStart()
+    private void OtokdokeMissionStart(GameObject goalObj)
     {
-        missionGoal.SetActive(true);
-
+        mygoalObj = goalObj;
+        mygoalObj.SetActive(true);
     }
     private void HiroiMissionStart(Transform goalPos)
     {
-        GameObject dropItem = Instantiate(tomatoObject, goalPos);
+        missionObj = Instantiate(tomatoObject, goalPos);
     }
     private void HitosagashiMissionStart(Transform genePos)
     {
         goalPerson = Instantiate(goalPersonPrefab, genePos);
+        VillagerController villagerController = goalPerson.GetComponent<VillagerController>();
+        villagerController.HaikaiPosObj = this.goalPersonHaikaiObj;
     }
 
     public void MissionClear()
@@ -113,9 +117,12 @@ public class MissionManager : MonoBehaviour
         missionText.text = isSuccess ? "人助け成功！" : "失敗";
 
         missionSlider.gameObject.SetActive(false);
-        StartCoroutine(DeactivateMissionUI());
 
-        //終了処理(失敗時)
+        //終了処理
+        if (missionNum == 0)
+        {
+            mygoalObj.SetActive(false);
+        }
         if ((missionNum == 1) && (isSuccess == false))
         {
             Destroy(missionObj);
@@ -124,6 +131,10 @@ public class MissionManager : MonoBehaviour
         {
             Destroy(goalPerson);
         }
+        //終了処理UI
+        isEndDuration = true;
+        StartCoroutine(DeactivateMissionUI());
+
     }
 
     IEnumerator DeactivateMissionUI()
@@ -132,7 +143,7 @@ public class MissionManager : MonoBehaviour
         isMission = false;
         missionCanvas.gameObject.SetActive(false);
         missionTimeCount = 0;
-        missionGoal.SetActive(false);
+        isEndDuration = false;
     }
 
 }

@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class VillegerCanvasController : MonoBehaviour
 {
-    [SerializeField]
+
     private Transform _camera = null;
 
+    private void Start()
+    {
+        _camera = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
+    }
     private void Update()
     {
         transform.LookAt(_camera);
