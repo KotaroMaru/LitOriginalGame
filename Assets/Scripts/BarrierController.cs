@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BarrierController : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
     [SerializeField] private int requiredTokuCount;
     private BoxCollider myCollider;
     private MeshRenderer myMesh;
@@ -21,7 +20,7 @@ public class BarrierController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.tokuCount >= requiredTokuCount)
+        if (GameManager.tokuCount >= requiredTokuCount)
         {
             myCollider.enabled = false;
             myMesh.enabled = false;

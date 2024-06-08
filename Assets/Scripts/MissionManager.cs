@@ -12,7 +12,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private Slider missionSlider;
     [SerializeField] private float missionMaxTime;
     private GameObject targetVilleger;
-    [SerializeField] private GameManager GameManager;
+    [SerializeField] private GameManager gameManager;
 
     //ミッションの残り時間
     private float missionTimeCount;
@@ -24,7 +24,6 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private GameObject tomatoObject;
     //人探しミッション
     [SerializeField] private GameObject goalPersonPrefab;
-    [SerializeField] private GameObject[] goalPersonHaikaiObj;
 
     private GameObject goalPerson;
 
@@ -102,7 +101,7 @@ public class MissionManager : MonoBehaviour
     {
         goalPerson = Instantiate(goalPersonPrefab, genePos);
         VillagerController villagerController = goalPerson.GetComponent<VillagerController>();
-        villagerController.HaikaiPosObj = this.goalPersonHaikaiObj;
+        villagerController.HaikaiPosObj = targetVilleger.GetComponent<VillagerController>().HaikaiPosObj;
     }
 
     public void MissionClear()
@@ -110,40 +109,43 @@ public class MissionManager : MonoBehaviour
         MissionEnd(true);
         targetVilleger.GetComponent<VillagerController>().MissionEnd();
         Debug.Log("MISSIONCLEAR");
-        GameManager.MissionClear();
+        gameManager.MissionClear();
     }
     public void MissionEnd(bool isSuccess)
     {
         missionText.text = isSuccess ? "人助け成功！" : "失敗";
 
         missionSlider.gameObject.SetActive(false);
+        if (isSuccess == false)
+        {
+            gameManager.MissionFailed();
+            //終了処理
+            if (missionNum == 0)
+            {
+                mygoalObj.SetActive(false);
+            }
+            if ((missionNum == 1) && (isSuccess == false))
+            {
+                Destroy(missionObj);
+            }
+            if ((missionNum == 2) && (isSuccess == false))
+            {
+                Destroy(goalPerson);
+            }
+            //終了処理UI
+            isEndDuration = true;
+            StartCoroutine(DeactivateMissionUI());
 
-        //終了処理
-        if (missionNum == 0)
-        {
-            mygoalObj.SetActive(false);
         }
-        if ((missionNum == 1) && (isSuccess == false))
+
+        IEnumerator DeactivateMissionUI()
         {
-            Destroy(missionObj);
+            yield return new WaitForSeconds(2.5f);
+            isMission = false;
+            missionCanvas.gameObject.SetActive(false);
+            missionTimeCount = 0;
+            isEndDuration = false;
         }
-        if ((missionNum == 2) && (isSuccess == false))
-        {
-            Destroy(goalPerson);
-        }
-        //終了処理UI
-        isEndDuration = true;
-        StartCoroutine(DeactivateMissionUI());
 
     }
-
-    IEnumerator DeactivateMissionUI()
-    {
-        yield return new WaitForSeconds(2.5f);
-        isMission = false;
-        missionCanvas.gameObject.SetActive(false);
-        missionTimeCount = 0;
-        isEndDuration = false;
-    }
-
 }

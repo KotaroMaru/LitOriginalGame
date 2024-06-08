@@ -81,16 +81,24 @@ public class VillagerController : MonoBehaviour
     public void SetHaikaiPos(int now)
     {
         if (isChase) return;
-        List<int> numbers = new List<int>();
-        for (int i = 0; i < HaikaiPosObj.Length; i++)
+        // List<int> numbers = new List<int>();
+        // for (int i = 0; i < HaikaiPosObj.Length; i++)
+        // {
+        //     numbers.Add(HaikaiPosObj[i].GetComponent<HaikaiTargetController>().thisTargetPosNum);
+        // }
+
+
+        // numbers.Remove(HaikaiPosObj[now].GetComponent<HaikaiTargetController>().thisTargetPosNum);
+        int r = Random.Range(0, HaikaiPosObj.Length);
+        if (HaikaiPosObj[r].GetComponent<HaikaiTargetController>().thisTargetPosNum == now)
         {
-            numbers.Add(i);
+            SetHaikaiPos(now);
+            return;
         }
-
-        numbers.Remove(now);
-        int r = Random.Range(0, numbers.Count);
-        targetHaikaiPos = HaikaiPosObj[numbers[r]].transform.position;
-
+        else
+        {
+            targetHaikaiPos = HaikaiPosObj[r].transform.position;
+        }
 
     }
 

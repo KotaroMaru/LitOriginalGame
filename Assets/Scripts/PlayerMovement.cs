@@ -9,9 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody myRigid;
     private Animator myAnimator;
     private Vector3 movingDirection;
-    private float rotateSpeed = 1.0f;
-    public float moveSpeed = 250.0f;
-    public float maxSpeed = 30.0f;
+    [SerializeField] private float rotateSpeed;
+    [SerializeField] private float moveForce;
+    [SerializeField] private float maxSpeed;
 
     void Start()
     {
@@ -41,22 +41,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.UpArrow) && myRigid.velocity.magnitude < maxSpeed)
         {
-            myRigid.AddForce(transform.forward * moveSpeed);
+            myRigid.AddForce(transform.forward * moveForce * Time.deltaTime * 100);
         }
         if (Input.GetKey(KeyCode.DownArrow) && myRigid.velocity.magnitude < maxSpeed)
         {
-            myRigid.AddForce(-transform.forward * moveSpeed);
+            myRigid.AddForce(-transform.forward * moveForce * Time.deltaTime * 100);
         }
     }
     private void HandleRotation()
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.Rotate(0, rotateSpeed, 0);
+            transform.Rotate(0, rotateSpeed * Time.deltaTime * 10, 0);
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.Rotate(0, -rotateSpeed, 0);
+            transform.Rotate(0, -rotateSpeed * Time.deltaTime * 10, 0);
         }
     }
     private void HandleMovementAnimation()

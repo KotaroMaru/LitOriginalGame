@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Hiroi1
   m_EditorClassIdentifier: 
   missionNum: 1
-  missionDescription: "\u30C8\u30DE\u30C8\u3092\u62FE\u3048"
+  missionDescription: "\u30C8\u30DE\u30C8\u3092\u62FE\u3048\uFF01"
   villegerComent: "\u30C8\u30DE\u30C8\u3092\u62FE\u3063\u3066\uFF01"
   targetObj: {fileID: 0}
