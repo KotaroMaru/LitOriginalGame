@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BarrierController : MonoBehaviour
 {
-    [SerializeField] private int requiredTokuCount;
+    [SerializeField] public int requiredTokuCount;
     private BoxCollider myCollider;
     private MeshRenderer myMesh;
     // Start is called before the first frame update

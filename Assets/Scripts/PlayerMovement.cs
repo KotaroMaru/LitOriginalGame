@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotateSpeed;
     [SerializeField] private float moveForce;
     [SerializeField] private float maxSpeed;
+    [SerializeField] private GameManager gameManager;
 
     void Start()
     {
@@ -68,6 +69,21 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
         {
             myAnimator.SetBool("Move", false);
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Barrier")
+        {
+            gameManager.ShowNeedTokuPointUI(other.gameObject.GetComponent<BarrierController>().requiredTokuCount);
+        }
+    }
+    void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.tag == "Barrier")
+        {
+            gameManager.HideNeedTokuPointUI();
         }
     }
 }

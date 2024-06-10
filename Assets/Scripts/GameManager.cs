@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
+//using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 public class GameManager : MonoBehaviour
 {
     private bool isGameStop = false;
@@ -17,12 +17,14 @@ public class GameManager : MonoBehaviour
     //タイマー
     [SerializeField] private Text timerText;
     private float timeCount = 0;
-    [SerializeField] private float timeLimit;
+    private static float timeLimit = 120;
+    private float initialTimeLimit = 120;
 
     //徳テキスト
     [SerializeField] private Text tokuText;
     public static int tokuCount;
     private int todayTokuCount;
+    [SerializeField] Text needTokuPoint;
     void Start()
     {
         //General
@@ -35,6 +37,8 @@ public class GameManager : MonoBehaviour
         //徳
         tokuText.text = tokuCount.ToString("f0"); ;
         todayTokuCount = 0;
+        needTokuPoint.enabled = false;
+
     }
     void Update()
     {
@@ -65,7 +69,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         //Canvas
         gameOverCanvas.gameObject.SetActive(true);
-        AddTokuCount(-100);
+        AddTokuCount(-30);
+        timeLimit -= 10;
         failedTokuText.text = "徳ポイント:" + tokuCount.ToString("F0") + "(" + todayTokuCount.ToString("F0") + ")";
 
     }
@@ -76,6 +81,7 @@ public class GameManager : MonoBehaviour
         clearResultText.text = "残り時間：" + timeCount.ToString("f0") + "秒";
         AddTokuCount((int)timeCount / 2);
         clearTokuText.text = "徳ポイント:" + tokuCount.ToString("F0") + "(+" + todayTokuCount.ToString("F0") + ")";
+        timeLimit = initialTimeLimit;
     }
     public void MissionClear()
     {
@@ -90,5 +96,14 @@ public class GameManager : MonoBehaviour
         todayTokuCount += count;
         tokuCount += count;
         tokuText.text = tokuCount.ToString("F0");
+    }
+    public void ShowNeedTokuPointUI(int point)
+    {
+        needTokuPoint.enabled = true;
+        needTokuPoint.text = "徳ポイント" + point + "で開放";
+    }
+    public void HideNeedTokuPointUI()
+    {
+        needTokuPoint.enabled = false;
     }
 }

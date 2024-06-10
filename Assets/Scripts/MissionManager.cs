@@ -13,7 +13,9 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private float missionMaxTime;
     private GameObject targetVilleger;
     [SerializeField] private GameManager gameManager;
-
+    [SerializeField] private GameObject missionIconPref;
+    [SerializeField] private Canvas worldUICanvas;
+    private GameObject missionIcon;
     //ミッションの残り時間
     private float missionTimeCount;
     private bool isMission = false;
@@ -92,17 +94,31 @@ public class MissionManager : MonoBehaviour
     {
         mygoalObj = goalObj;
         mygoalObj.SetActive(true);
+        GenerateMissionUI(mygoalObj);
     }
     private void HiroiMissionStart(Transform goalPos)
     {
         missionObj = Instantiate(tomatoObject, goalPos);
+        GenerateMissionUI(missionObj);
     }
     private void HitosagashiMissionStart(Transform genePos)
     {
         goalPerson = Instantiate(goalPersonPrefab, genePos);
         VillagerController villagerController = goalPerson.GetComponent<VillagerController>();
         villagerController.HaikaiPosObj = targetVilleger.GetComponent<VillagerController>().HaikaiPosObj;
+        GenerateMissionUI(goalPerson);
     }
+
+    private void GenerateMissionUI(GameObject uiTargetObj)
+    {
+        missionIcon = Instantiate(missionIconPref, transform.position, Quaternion.identity, worldUICanvas.transform);
+        missionIcon.GetComponent<TargetIndicator>().target = uiTargetObj.transform;
+    }
+    private void DestroyMissionUI()
+    {
+        Destroy(missionIcon);
+    }
+
 
     public void MissionClear()
     {
@@ -121,6 +137,7 @@ public class MissionManager : MonoBehaviour
             gameManager.MissionFailed();
         }
         //終了処理
+
         if (missionNum == 0)
         {
             mygoalObj.SetActive(false);
@@ -134,6 +151,7 @@ public class MissionManager : MonoBehaviour
             Destroy(goalPerson);
         }
         //終了処理UI
+        DestroyMissionUI();
         isEndDuration = true;
         StartCoroutine(DeactivateMissionUI());
 
