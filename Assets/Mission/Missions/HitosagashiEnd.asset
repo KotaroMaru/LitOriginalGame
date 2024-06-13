@@ -16,4 +16,4 @@ MonoBehaviour:
   missionDescription: 
   villegerComent: "\u79C1\u304C\u8B66\u5B98\u3067\u3059\uFF01"
   targetObj: {fileID: 0}
-  methodName: HitosagashiEnd
+  thankText: "\u3054\u5354\u529B\u611F\u8B1D\u3057\u307E\u3059"

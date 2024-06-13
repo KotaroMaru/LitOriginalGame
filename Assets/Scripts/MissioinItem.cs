@@ -11,6 +11,7 @@ public class MissionItem : ScriptableObject
     public string missionDescription;
     public string villegerComent;
     public GameObject targetObj;
+    public string thankText;
 
     public MissionItem(MissionItem missionItem)
     {
@@ -18,5 +19,6 @@ public class MissionItem : ScriptableObject
         this.missionDescription = missionItem.missionDescription;
         this.targetObj = missionItem.targetObj;
         this.villegerComent = missionItem.villegerComent;
+        this.thankText = missionItem.thankText;
     }
 }

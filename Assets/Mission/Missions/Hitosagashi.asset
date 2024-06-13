@@ -16,4 +16,4 @@ MonoBehaviour:
   missionDescription: "\u8B66\u5BDF\u5B98\u3092\u63A2\u305B"
   villegerComent: "\u8B66\u5BDF\u3055\u3093\u3092\u63A2\u3057\u3066\uFF01"
   targetObj: {fileID: 0}
-  methodName: 
+  thankText: "\u611F\u8B1D\u3063..!\u5727\u5012\u7684\u611F\u8B1D\u3063...!"

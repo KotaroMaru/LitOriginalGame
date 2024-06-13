@@ -15,4 +15,5 @@ MonoBehaviour:
   missionNum: 0
   missionDescription: "\u30EC\u30B9\u30C8\u30E9\u30F3\u306B\u5411\u304B\u3048\uFF01"
   villegerComent: "\u30EC\u30B9\u30C8\u30E9\u30F3\u306B\u9023\u308C\u3066\u3063\u3066\uFF01"
-  goalObject: {fileID: 0}
+  targetObj: {fileID: 0}
+  thankText: "\u547D\u306E\u6069\u4EBA\uFF01"

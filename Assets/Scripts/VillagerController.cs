@@ -72,7 +72,7 @@ public class VillagerController : MonoBehaviour
     public void MissionEnd()
     {
         isMissioned = true;
-        myText.text = "ありがとう！";
+        myText.text = myMission.thankText;
         myNavMeshAgent.velocity = Vector3.zero;
         myNavMeshAgent.SetDestination(transform.position);
         myAnimator.SetBool("Move", false);

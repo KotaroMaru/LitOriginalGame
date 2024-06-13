@@ -25,8 +25,25 @@ public class GameManager : MonoBehaviour
     public static int tokuCount;
     private int todayTokuCount;
     [SerializeField] Text needTokuPoint;
+    //BGM,SE
+    [SerializeField] AudioClip[] audioClips;
+    private AudioSource audioSource;
     void Start()
     {
+        //bgm
+
+        this.audioSource = GetComponent<AudioSource>();
+        audioSource.pitch = 1.0f;
+
+        if (tokuCount >= 150)
+        {
+            audioSource.PlayOneShot(audioClips[5]);
+        }
+        else
+        {
+            audioSource.PlayOneShot(audioClips[0]);
+
+        }
         //General
         Time.timeScale = 1.0f;
         //Canvas
@@ -57,6 +74,10 @@ public class GameManager : MonoBehaviour
             GameOver();
             isGameStop = true;
         }
+        if (timeCount < 30.0f)
+        {
+            audioSource.pitch = 1.3f;
+        }
     }
     public void RetryButton()
     {
@@ -65,6 +86,10 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        audioSource.pitch = 1.0f;
+
+        audioSource.PlayOneShot(audioClips[4]);
+
         //General
         Time.timeScale = 0f;
         //Canvas
@@ -76,6 +101,10 @@ public class GameManager : MonoBehaviour
     }
     public void GameClear()
     {
+        audioSource.pitch = 1.0f;
+
+        audioSource.PlayOneShot(audioClips[3]);
+
         Time.timeScale = 0f;
         gameClearCanvas.gameObject.SetActive(true);
         clearResultText.text = "残り時間：" + timeCount.ToString("f0") + "秒";
@@ -85,10 +114,13 @@ public class GameManager : MonoBehaviour
     }
     public void MissionClear()
     {
+        audioSource.PlayOneShot(audioClips[1]);
         AddTokuCount(10);
     }
     public void MissionFailed()
     {
+        audioSource.PlayOneShot(audioClips[2]);
+
         AddTokuCount(-5);
     }
     private void AddTokuCount(int count)
